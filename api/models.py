@@ -44,7 +44,9 @@ class Products(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    category = models.ForeignKey(Categories, related_name='products', on_delete=models.SET_NULL)
+    category = models.ForeignKey(
+        Categories, on_delete=models.SET_NULL, null=True, blank=True)
+
 
 
     class Meta:
