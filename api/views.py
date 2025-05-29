@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 # Detail -> Product Page
 
 #! Product List View 😮‍💨(Show Products in Home Page)
-api_view(['GET'])
+@api_view(['GET'])
 def product_list(request):
     products = Products.objects.filter(featured=True)
     serializer = ProductListSerializer(products, many=True)
@@ -17,7 +17,7 @@ def product_list(request):
 
 
 #! Product Detail View 🙃(Show Product Details in Product Page)
-api_view(['GET'])
+@api_view(['GET'])
 def product_detail(request, slug):
     product = get_object_or_404(Products, slug=slug)
     serializer = ProductDetailSerializer(product)
@@ -25,14 +25,14 @@ def product_detail(request, slug):
 
 
 #! Category List View 🫠(Show Categories in Home Page)
-api_view(['GET'])
+@api_view(['GET'])
 def category_list(request):
     categories = Categories.objects.all()
     serializer = CategoryListSerializer(categories, many=True)
     return Response(serializer.data)
 
 #! Category Detail View 😚(Show Categories in Home Page)
-api_view(['GET'])
+@api_view(['GET'])
 def category_detail(request, slug):
     category = get_object_or_404(Categories, slug=slug)
     serializer = CategoryListSerializer(category)
