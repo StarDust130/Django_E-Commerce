@@ -10,12 +10,9 @@ class ProductListSerializer(serializers.ModelSerializer):
 
 #! Products Detail Serializer 😮(Show Product Details in Product Page)
 class ProductDetailSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField()  # Show category name instead of ID
-
     class Meta:
         model = Products
         fields = ['id', 'name', 'price', 'image', 'description', 'category', 'slug']
-        read_only_fields = ['id']  # Make id read-only
 
 #! Categories Serializer 🫠(Show Categories in Home Page)
 class CategorySerializer(serializers.ModelSerializer):
