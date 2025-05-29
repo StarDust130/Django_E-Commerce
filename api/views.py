@@ -1,8 +1,9 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Products , Categories
-from .serializers import ProductListSerializer, ProductDetailSerializer , CategoryListSerializer
+from .models import CartItem, Products , Categories , Cart 
+from .serializers import CartItemSerializer, ProductListSerializer, ProductDetailSerializer , CategoryListSerializer
 from django.shortcuts import get_object_or_404
+
 
 # List -> Home Page 
 # Detail -> Product Page
@@ -37,3 +38,22 @@ def category_detail(request, slug):
     category = get_object_or_404(Categories, slug=slug)
     serializer = CategoryListSerializer(category)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def add_to_cart(request):
+    card_code = request.data.get('cart_code')
+    product_id = request.data.get('product_id')
+
+    cart , created = Cart.objects.get_or_create(cart_code=card_code)
+    product = Products.objects.get(id=product_id)
+
+    cartitem , created = CartItem.objects.get_create(product=product, cart=cart)
+    cartitem.quantity = 1
+    cartitem.save()
+
+    serializer = CartItemSerializer(cartitem)
+
+
+    return Response(serializer.data)
+    
