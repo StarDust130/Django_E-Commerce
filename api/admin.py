@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Cart, CustomUser , Products , Categories
+from .models import Cart, CartItem, CustomUser , Products , Categories
 
 
 
@@ -25,4 +25,4 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register( Categories , CategoryAdmin)
 
 
-admin.site.register([Cart])
+admin.site.register([Cart , CartItem])
