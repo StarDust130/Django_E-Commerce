@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Categories , Products , CustomUser
+from .models import Categories , Products , CustomUser , CartItem
 
 #! Products Serializer 😌(Show Products in Home Page)
 class ProductListSerializer(serializers.ModelSerializer):
@@ -48,3 +48,16 @@ class CustomUserSerializer(serializers.ModelSerializer):
             profile_picture_url=validated_data.get('profile_picture_url', None)
         )
         return user
+
+class CartItemSerializer(serializers.ModelSerializer):
+    product = ProductListSerializer(read_only=True)
+    sub_total = serializers.SerializerMethodField()
+     
+    class Meta:
+        model = CartItem
+        fields = ['id', 'product', 'quantity' , "sub_total"]
+
+    def get_sub_total(self, cartitem):
+        return cartitem.product.price * cartitem.quantity    
+
+
