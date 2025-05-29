@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Categories , Products , CustomUser , CartItem
+from .models import Categories , Products , CustomUser , CartItem , Cart
 
 #! Products Serializer 😌(Show Products in Home Page)
 class ProductListSerializer(serializers.ModelSerializer):
@@ -49,6 +49,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         )
         return user
 
+#! Cart Item Serializer 🤭
 class CartItemSerializer(serializers.ModelSerializer):
     product = ProductListSerializer(read_only=True)
     sub_total = serializers.SerializerMethodField()
@@ -61,3 +62,30 @@ class CartItemSerializer(serializers.ModelSerializer):
         return cartitem.product.price * cartitem.quantity    
 
 
+#! Cart Serializer 😜
+class CartSerializer(serializers.ModelSerializer):
+    carditems = CartItemSerializer(many=True, read_only=True)
+    card_total = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Cart
+        fields = ['id', 'cart_code', 'carditems' ,"card_total"]
+
+    def get_card_total(self, cart):
+        items = cart.carditems.all()
+        total = sum(item.product.price * item.quantity for item in items)
+        return total
+    
+
+#! Cart Stat Serializer 🤠
+class CartStatSerializer(serializers.ModelSerializer):
+    total_quantity = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Cart
+        fields = ["id", "cart_code", "total_quantity"]
+
+    def get_total_quantity(self, cart):
+        items = cart.cartitems.all()
+        total = sum([item.quantity for item in items])
+        return total
