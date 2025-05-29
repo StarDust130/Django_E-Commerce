@@ -75,6 +75,22 @@ class Products(models.Model):
 
 
 
-        
+class Cart(models.Model):
+    cart_code = models.CharField(max_length=11, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-            
+
+    def __str__(self):
+        return self.cart_code        
+
+
+class CartItem(models.Model):
+    product = models.ForeignKey(Products, related_name="item",  on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, related_name='cartitems', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.quantity} in {self.product.name} in {self.cart.cart_code}"
