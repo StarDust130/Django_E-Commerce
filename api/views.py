@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Products
-from .serializers import ProductListSerializer, ProductDetailSerializer
+from .models import Products , Categories
+from .serializers import ProductListSerializer, ProductDetailSerializer , CategorySerializer
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -20,5 +20,12 @@ api_view(['GET'])
 def product_detail(request, slug):
     product = get_object_or_404(Products, slug=slug)
     serializer = ProductDetailSerializer(product)
-    print("Product Detail Serializer 😆", serializer)  
+    return Response(serializer.data)
+
+
+#! Category List View 🫠(Show Categories in Home Page)
+api_view(['GET'])
+def category_list(request):
+    categories = Categories.objects.all()
+    serializer = CategorySerializer(categories, many=True)
     return Response(serializer.data)
