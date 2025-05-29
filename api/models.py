@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -55,3 +56,25 @@ class Products(models.Model):
 
     def __str__(self):
         return self.name
+    
+    # This will ensure that the slug is unique and follows the format "name" or "name-1", "name-2", etc.
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            counter = 1
+
+            # Keep updating slug until it's unique
+            while Products.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
+        super().save(*args, **kwargs)
+
+
+
+        
+
+            
