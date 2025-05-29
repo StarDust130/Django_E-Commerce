@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Categories , Products , CustomUser
 
-#! Products Serializer 😮(Show Products in Home Page)
+#! Products Serializer 😌(Show Products in Home Page)
 class ProductListSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -14,8 +14,15 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         model = Products
         fields = ['id', 'name', 'price', 'image', 'description', 'category', 'slug']
 
-#! Categories Serializer 🫠(Show Categories in Home Page)
-class CategorySerializer(serializers.ModelSerializer):
+#! Categories Serializer 😚(Show Categories in Home Page)
+class CategoryListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categories
+        fields = ['id', 'name', 'image' , "slug"]
+
+
+#! Categories Detail Serializer 🫠(Show Categories in Home Page)
+class CategoryDetailSerializer(serializers.ModelSerializer):
     products = ProductListSerializer(many=True, read_only=True)
 
     class Meta:
