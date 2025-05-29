@@ -1,18 +1,18 @@
 from rest_framework import serializers
 from .models import Categories , Products , CustomUser
 
-#! Products Serializer 😮
-class ProductSerializer(serializers.ModelSerializer):
+#! Products Serializer 😮(Show Products in Home Page)
+class ProductListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Products
-        fields = ['id', 'name', 'description', 'price', 'image', 'slug']
+        fields = ['id', 'name', 'price', 'image', 'slug']
 
 
 
-#! Categories Serializer 🫠
+#! Categories Serializer 🫠(Show Categories in Home Page)
 class CategorySerializer(serializers.ModelSerializer):
-    products = ProductSerializer(many=True, read_only=True)
+    products = ProductListSerializer(many=True, read_only=True)
 
     class Meta:
         model = Categories
