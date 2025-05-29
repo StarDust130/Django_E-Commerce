@@ -24,7 +24,7 @@ class Categories(models.Model):
     """
     name = models.CharField(max_length=255, unique=True)
     image = models.ImageField(upload_to='categories_img/', blank=True, null=True)
-    slug = models.SlugField(max_length=255, unique=True)
+    slug = models.SlugField(blank=True, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
