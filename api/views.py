@@ -48,7 +48,8 @@ def add_to_cart(request):
     cart , created = Cart.objects.get_or_create(cart_code=card_code)
     product = Products.objects.get(id=product_id)
 
-    cartitem , created = CartItem.objects.get_create(product=product, cart=cart)
+    cartitem, created = CartItem.objects.get_or_create(product=product, cart=cart)
+
     cartitem.quantity = 1
     cartitem.save()
 
