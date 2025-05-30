@@ -3,11 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 
 
-# Create your models here.
+#! User Model 😊
 class CustomUser(AbstractUser):
-    """
-    Custom user model that extends the default Django user model.
-    """
     email = models.EmailField(unique=True)
     profile_picture_url = models.URLField(
         max_length=255, blank=True, null=True,
@@ -17,7 +14,7 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email   # Use email as the string representation of the user
  
-
+#! Category Models 😚
 class Categories(models.Model):
     """
     Model representing a product category.
@@ -34,10 +31,8 @@ class Categories(models.Model):
     def __str__(self):
         return self.name 
 
+#! Product Models 😎
 class Products(models.Model):
-    """
-    Model representing a product.
-    """
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -74,7 +69,7 @@ class Products(models.Model):
         super().save(*args, **kwargs)
 
 
-
+#! Cart Models 😍
 class Cart(models.Model):
     cart_code = models.CharField(max_length=11, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -84,7 +79,7 @@ class Cart(models.Model):
     def __str__(self):
         return self.cart_code        
 
-
+#! Cart Item Models 🤭
 class CartItem(models.Model):
     product = models.ForeignKey(Products, related_name="item",  on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, related_name='cartitems', on_delete=models.CASCADE)

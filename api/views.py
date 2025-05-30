@@ -39,7 +39,7 @@ def category_detail(request, slug):
     serializer = CategoryListSerializer(category)
     return Response(serializer.data)
 
-
+#! Add to Cart View 🛒(Add Product to Cart)
 @api_view(['POST'])
 def add_to_cart(request):
     card_code = request.data.get('cart_code')
