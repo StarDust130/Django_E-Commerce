@@ -89,3 +89,4 @@ class CartStatSerializer(serializers.ModelSerializer):
         items = cart.cartitems.all()
         total = sum([item.quantity for item in items])
         return total
+
