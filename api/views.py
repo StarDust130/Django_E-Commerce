@@ -72,3 +72,10 @@ def update_cartitem_quantity(request):
 
     serializer = CartItemSerializer(cartitem)
     return Response({"data": serializer.data, "message": "Cartitem updated successfully!"})
+
+
+
+#! View Cart Items View 🛍️(View Cart Items)
+@api_view(['GET'])
+def view_cart(request):
+    pass
