@@ -84,6 +84,7 @@ class CartItem(models.Model):
     product = models.ForeignKey(Products, related_name="item",  on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, related_name='cartitems', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    session_id = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
