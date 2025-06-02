@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import CartItem, Products , Categories , Cart 
+from .models import CartItem, Products, Categories, Cart
 from .serializers import CartItemSerializer, ProductListSerializer, ProductDetailSerializer , CategoryListSerializer
 from django.shortcuts import get_object_or_404
 
@@ -78,4 +78,7 @@ def update_cartitem_quantity(request):
 #! View Cart Items View 🛍️(View Cart Items)
 @api_view(['GET'])
 def view_cart(request):
-    pass
+    cart_item = CartItem.objects.all()
+    serializer = CartItemSerializer(cart_item, many=True)
+    return Response(serializer.data)
+
