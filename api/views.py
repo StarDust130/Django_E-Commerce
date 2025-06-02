@@ -17,7 +17,7 @@ def product_list(request):
     return Response(serializer.data)
 
 
-#! Product Detail View 🙃(Show Product Details in Product Page)
+#! Product Detail View 🙃(Show Product Details irn Product Page)
 @api_view(['GET'])
 def product_detail(request, slug):
     product = get_object_or_404(Products, slug=slug)
